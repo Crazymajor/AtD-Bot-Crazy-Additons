@@ -120,19 +120,19 @@ class TPHandler:
             pair = {region_a, region_b}
 
             if pair == {"Riverlands", "Vale"}:
-                notices.append("Movement between the Riverlands and the Vale requires permission to pass through the Bloody Gate. Please ping the controller of the Bloody Gate (presumed House Arryn).")
+                notices.append("Movement between the Riverlands and the Vale requires permission to pass through the Bloody Gate. Please ping the controller of the Bloody Gate for permission (presumed House Arryn).")
 
             if pair == {"Riverlands", "North"}:
-                notices.append("Movement between the Riverlands and the North requires permission to pass through Moat Cailin. Please ping the controller of Moat Cailin (presumed House Stark).")
+                notices.append("Movement between the Riverlands and the North requires permission to pass through Moat Cailin. Please ping the controller of Moat Cailin for permission (presumed House Stark).")
 
             if pair == {"Riverlands", "Westerlands"}:
-                notices.append("Movement between the Riverlands and the Westerlands requires permission to pass through the Golden Tooth. Please ping House Lefford of the Golden Tooth.")
+                notices.append("Movement between the Riverlands and the Westerlands requires permission to pass through the Golden Tooth. Please ping House Lefford of the Golden Tooth for permission, or their overlord if unclaimed.")
 
             if pair == {"Stormlands", "Dorne"}:
-                notices.append("Movement between the Stormlands and Dorne is assumed to pass through the Boneway or the eastern Prince’s Pass. Both House Dondarrion and House Yronwood must be pinged for permission.")
+                notices.append("Movement between the Stormlands and Dorne is assumed to pass through the Boneway or the eastern Prince’s Pass. For the Boneway, both House Dondarrion and House Yronwood must be pinged for permission, or their overlords if unclaimed. For the eastern Prince's Pass. both House Caron and House Fowler must be pinged for permission, or their overlords if unclaimed")
 
             if pair == {"Reach", "Dorne"}:
-                notices.append("Movement between the Reach and Dorne is assumed to pass through the western Prince’s Pass. Both House Caron and House Fowler must be pinged for permission.")
+                notices.append("Movement between the Reach and Dorne is assumed to pass through the western Prince’s Pass. Both House Tarly and House Dayne must be pinged for permission, or their overlords if unclaimed.")
 
         return notices
 
@@ -187,8 +187,9 @@ class TPHandler:
         reply_text += f"\n\n**Route Taken:** {route_summary}"
 
         # Add chokepoint notices if applicable
-        # notices = self.check_chokepoints_in_path(path)
-        # if notices:
-            # reply_text += "\n\n**Note:**\n" + "\n".join(f"\n- {notice}" for notice in notices)
+        notices = self.check_chokepoints_in_path(path)
+        if notices:
+            reply_text += "\n\n**Note:**\n" + "\n".join(f"\n- {notice}" for notice in notices)
 
         self.comment.reply(reply_text)
+
